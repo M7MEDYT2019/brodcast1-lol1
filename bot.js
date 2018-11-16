@@ -4,7 +4,7 @@ const prefix = '*'
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-client.user.setGame(`.help | .inv | ${client.guilds.size} Servers `,"http://twitch.tv/iMericPvP")
+client.user.setGame(`-bc ${client.guilds.size} Servers `,"http://twitch.tv/PandaH")
   console.log('')
   console.log('')
   console.log('╔[═════════════════════════════════════════════════════════════════]╗')
@@ -28,25 +28,10 @@ client.user.setGame(`.help | .inv | ${client.guilds.size} Servers `,"http://twit
   console.log('')
 });
 
-client.login(process.env.BOT_TOKEN);
-
-client.on("guildMemberAdd", member => {
-  member.createDM().then(function (channel) {
-  return channel.send(`●▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬●
- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
- ░░░░░░░░░░░░░█░█░█░█▀▀▀░█░░░░█▀▀▀░█▀▀█░█▀█▀█░█▀▀▀░░░░░░░░
- ░░░░░░░░░░░░░█░█░█░█▀▀▀░█░░░░█░░░░█░░█░█░█░█░█▀▀▀░░░░░░░░
- ░░░░░░░░░░░░░▀▀▀▀▀░▀▀▀▀░▀▀▀▀░▀▀▀▀░▀▀▀▀░▀░▀░▀░▀▀▀▀░░░░░░░░
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 
-●▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬● ${member} `) 
-}).catch(console.error)
-
-});
-
 
 client.on('message', message => {
   if(!message.channel.guild) return;
-if(message.content.startsWith('*bc')) {
+if(message.content.startsWith('-bc')) {
 if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
 if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
 let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
@@ -85,54 +70,5 @@ msg.delete();
 }
 });
 
- client.on("guildMemberAdd", member => {
-    member.createDM().then(function (channel) {
-    return channel.send(`:rose:  ولكم نورت السيرفر:rose: 
-  :crown:اسم العضو  ${member}:crown:  
-  انت العضو رقم ${member.guild.memberCount} `) 
-  }).catch(console.error)
-  })
 
-client.on("guildCreate", guild => {
-  console.log(` شخص ما اضاف بوت  في سيرفر اسمه ! ${guild.name} اونر سيرفر هو ${guild.owner.user.username}!`)
-});
-
-	client.on("message", (message) => {
-if (message.content.startsWith("*ct")) {
-            if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.reply("You Don't Have `MANAGE_CHANNELS` Premissions ");
-        let args = message.content.split(" ").slice(1);
-    message.guild.createChannel(args.join(' '), 'text');
-message.channel.sendMessage('تـم إنـشاء روم كـتابـي')
-
-}
-});
-
-client.on("message", (message) => {
-if (message.content.startsWith("*cv")) {
-            if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.reply("You Don't Have `MANAGE_CHANNELS` Premissions ");
-        let args = message.content.split(" ").slice(1);
-    message.guild.createChannel(args.join(' '), 'voice');
-    message.channel.sendMessage('تـم إنـشاء روم صـوتي')
-
-}
-});
-
-client.on('message', function(msg) {
-    if(msg.content.startsWith ('*server')) {
-      let embed = new Discord.RichEmbed()
-      .setColor('RANDOM')
-      .setThumbnail(msg.guild.iconURL)
-      .setTitle(`Showing Details Of  **${msg.guild.name}*`)
-      .addField('🌐** server type**',`[** __${msg.guild.region}__ **]`,true)
-      .addField('🏅** __Roles__**',`[** __${msg.guild.roles.size}__ **]`,true)
-      .addField('🔴**__ Members Number__**',`[** __${msg.guild.memberCount}__ **]`,true)
-      .addField('🔵**__ Members Number who online__**',`[** __${msg.guild.members.filter(m=>m.presence.status == 'online').size}__ **]`,true)
-      .addField('📝**__ Text Channels__**',`[** __${msg.guild.channels.filter(m => m.type === 'text').size}__** ]`,true)
-      .addField('🎤**__ voice Channels__**',`[** __${msg.guild.channels.filter(m => m.type === 'voice').size}__ **]`,true)
-      .addField('👑**__ The Owner__**',`**${msg.guild.owner}**`,true)
-      .addField('🆔**__ Server ID__**',`**${msg.guild.id}**`,true)
-      .addField('📅**__The date when the server created __**',msg.guild.createdAt.toLocaleString())
-      msg.channel.send({embed:embed});
-    }
-  });
-
+client.login(process.env.BOT_TOKEN);
